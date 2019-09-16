@@ -33,9 +33,9 @@ abstract class RideDatabase: RoomDatabase() {
                     RideDatabase::class.java,
                     "rides_table"
                 )
-                    //.fallbackToDestructiveMigration()
+                  //  .fallbackToDestructiveMigration()
 
-                   // .addCallback(RideDatabaseCallback(scope))
+                    //.addCallback(RideDatabaseCallback(scope))
                     .build()
                 INSTANCE = instance
 
@@ -67,6 +67,8 @@ abstract class RideDatabase: RoomDatabase() {
            lateinit var point : Point
              var listOfPoints : MutableList<Point> = arrayListOf()
 
+            /**
+
             point = Point(0.0, 0.0, 0)
 
             for (i in 0..100) {
@@ -78,13 +80,13 @@ abstract class RideDatabase: RoomDatabase() {
             }
 
 
-
+**/
 
 
             var route = Route(listOfPoints)
 
             var ride = DatabaseRideModel(0,"2nd ride","13.05.2033T22:04","14.05.2033T23:04",33000,36000,route.toString() ,"")
-            ridesDAO.insert(ride)
+          //  ridesDAO.insert(ride)
 
 
             Log.e("RIDE: " , ride.toString())

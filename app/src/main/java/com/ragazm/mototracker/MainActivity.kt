@@ -12,6 +12,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.ragazm.mototracker.database.DatabaseRideModel
 import com.ragazm.mototracker.model.Ride
 import com.ragazm.mototracker.model.Point
@@ -57,19 +59,11 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity, TrackingActivity::class.java)
             startActivityForResult(intent, trackingActivityRequestCode)
 
-            point = Point(0.0, 0.0, 0)
 
-            for (i in 0..100) {
-                point.latitude = 56.888357 + i
-                point.longitude = 24.150330 + i
-                point.speed = 20 + i
-
-                listOfPoints.add(i, point)
-            }
 
             var route = Route(listOfPoints)
 
-            var ride = Ride(0,"1st ride","13.05.2033T22:04","14.05.2033T23:04",33000,36000,route.toString() ,"")
+            var ride = Ride(0,"1st ride","13.05.2033T22:04","14.05.2033T23:04",33000,36000,route ,"")
 
             Log.e("RIDE:", ride.toString())
 
@@ -91,6 +85,12 @@ class MainActivity : AppCompatActivity() {
             data?.let {
                 val ride: Ride = data.extras.getSerializable(TrackingActivity.EXTRA_REPLY) as Ride
 
+
+
+
+                var gson = GsonBuilder().disableHtmlEscaping().create()
+                var rrt = gson.toJson(ride.route)
+
                 var databaseRide = DatabaseRideModel(
                     ride.id,
                     ride.name,
@@ -98,7 +98,8 @@ class MainActivity : AppCompatActivity() {
                     ride.finishDate,
                     ride.distance,
                     ride.duration,
-                    ride.route.toString(),
+                   // ride.route.toString(),
+                    rrt,
                     ride.comment)
 
                 rideViewModel.insert(databaseRide)

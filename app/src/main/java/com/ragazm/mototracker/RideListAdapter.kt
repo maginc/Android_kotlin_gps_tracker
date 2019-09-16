@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.ragazm.mototracker.database.DatabaseRideModel
+import com.ragazm.mototracker.model.Route
 
 /**
  *Created by Andris on 09-Aug-19
@@ -43,6 +45,12 @@ class RideListAdapter  internal constructor(context: Context): RecyclerView.Adap
 
 
       val current = rides[position]
+        Log.e("RIDEEEE:", current.route.toString())
+
+        val text = current.route
+
+        val route = Gson().fromJson(text, Route::class.java)
+       // holder.rideItemView.text = route.route[position].longitude.toString()
         holder.rideItemView.text = current.id.toString()
         holder.rideItemView2.text = current.duration.toString()
 

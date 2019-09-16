@@ -18,5 +18,5 @@ data class Ride (
     //duration in seconds
                  val duration: Int,
     //json with route coordinates
-                 val route: String,
+                 val route: Route,
                   val comment: String) : Serializable
